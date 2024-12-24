@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-//#include "CircuitLogic.hpp"
 #include "CircuitComponent.hpp"
 
 class P5CircuitWindow : public QObject
@@ -25,17 +24,20 @@ private:
     QGraphicsView *view;
 
     CircuitComponent *nfb;
+    CircuitComponent *cos1;
     CircuitComponent *pb1;
+    CircuitComponent *pb2;
     CircuitComponent *ems;
     CircuitComponent *thRy;
-    CircuitComponent *x1;
-    CircuitComponent *x2;
-    CircuitComponent *x3;
-    CircuitComponent *mcf;
-    CircuitComponent *mcr;
-    CircuitLamp *pl1;
-    CircuitLamp *pl2;
-    CircuitLamp *pl3;
+    CircuitComponent *mc1;
+    CircuitComponent *mc2;
+    CircuitComponent *mc3;
+    CircuitComponent *t1; //timer t1; maybe need new class for timer.
+    CircuitLamp *pl1; //red
+    CircuitLamp *pl2; //red
+    CircuitLamp *pl3; //yellow
+    CircuitLamp *pl4; //green
+    CircuitLamp *bz; //bz
 };
 
 #endif // P5CIRCUITWINDOW_HPP
