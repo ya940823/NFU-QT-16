@@ -1,0 +1,11 @@
+debug/CircuitComponent.o
+debug/P5CircuitWindow.o
+debug/P6CircuitWindow.o
+debug/P7CircuitWindow.o
+debug/main.o
+debug/mainwindow.o
+debug/moc_CircuitComponent.o
+debug/moc_P5CircuitWindow.o
+debug/moc_P6CircuitWindow.o
+debug/moc_P7CircuitWindow.o
+debug/moc_mainwindow.o
