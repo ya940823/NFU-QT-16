@@ -84,9 +84,9 @@ void MainWindow::onButton1_clicked()
     QHBoxLayout *buttonLayout = new QHBoxLayout();
 
     // Create buttons
-    QPushButton *button1 = new QPushButton("Open P5Circuit", window);
-    QPushButton *button2 = new QPushButton("Open PNG 2", window);
-    QPushButton *button3 = new QPushButton("Open New Window", window);
+    QPushButton *button1 = new QPushButton("P5電路圖", window);
+    QPushButton *button2 = new QPushButton("P5動作說明", window);
+    QPushButton *button3 = new QPushButton("作答", window);
 
     QString resourcesPath = QDir::currentPath();
     QString curPath = resourcesPath.section('/', 0, -3) + "/resources/";
@@ -99,9 +99,15 @@ void MainWindow::onButton1_clicked()
         qDebug() << fileName;
         QLabel *label = new QLabel();
         QPixmap pixmap(fileName);
-        label->setPixmap(pixmap);
+        if (!pixmap.isNull()) {
+            label->setScaledContents(true); // Enable scaling
+            label->setPixmap(pixmap);
+        }
         label->setWindowFlags(Qt::Window);
-        label->resize(pixmap.size());
+        //label->resize(pixmap.size());
+        label->resize(800, 600);
+        label->setWindowTitle("P5電路圖");
+        //label->setFixedSize(800, 600);
         label->show();
     });
 
@@ -110,9 +116,14 @@ void MainWindow::onButton1_clicked()
         if (!fileName.isEmpty()) {
             QLabel *label = new QLabel();
             QPixmap pixmap(fileName);
-            label->setPixmap(pixmap);
+            if (!pixmap.isNull()) {
+                label->setScaledContents(true); // Enable scaling
+                label->setPixmap(pixmap);
+            }
             label->setWindowFlags(Qt::Window);
-            label->resize(pixmap.size());
+            //label->resize(pixmap.size());
+            label->resize(800, 600);
+            label->setWindowTitle("P5動作說明");
             label->show();
         }
     });
@@ -120,7 +131,7 @@ void MainWindow::onButton1_clicked()
     connect(button3, &QPushButton::clicked, this, [this, curPath, Randomnumber]() {
         // Create a new window
         QWidget *newWindow = new QWidget();
-        newWindow->setWindowTitle("New Window");
+        newWindow->setWindowTitle("作答");
 
         // Create layout for the new window
         QVBoxLayout *newLayout = new QVBoxLayout(newWindow);
@@ -154,14 +165,15 @@ void MainWindow::onButton1_clicked()
 
             // Add a label to display the submitted text
             std::string str = inputText.toStdString();
-            QString confirmText;
+            //QLabel *confirmationLabel = new QLabel(confirmText, confirmationWindow);
+            QLabel *confirmationLabel = new QLabel(confirmationWindow);
             if(str == "S" + std::to_string(Randomnumber) || str == "s" + std::to_string(Randomnumber) || str == std::to_string(Randomnumber)) {
-                confirmText = "Correct!";
+                confirmationLabel->setText("Correct Answer!");
+                confirmationLabel->setStyleSheet("color: green; font-size: 24px; font-weight: bold;");
             }else{
-                confirmText = "Wrong!";
+                confirmationLabel->setText("Wrong Answer.");
+                confirmationLabel->setStyleSheet("color: red; font-size: 24px; font-weight: bold;");
             }
-                //
-            QLabel *confirmationLabel = new QLabel(confirmText, confirmationWindow);
             confirmationLabel->setAlignment(Qt::AlignCenter);
 
             // Add the label to the layout
