@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../../../../NFU-QT-16-date1227/NFU-QT-16-date1227/CircuitComponent.hpp"
+#include "../../../CircuitComponent.hpp"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>

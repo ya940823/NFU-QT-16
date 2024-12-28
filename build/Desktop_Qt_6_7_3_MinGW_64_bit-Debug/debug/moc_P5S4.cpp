@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../../../../NFU-QT-16-date1227/NFU-QT-16-date1227/P5S4.hpp"
+#include "../../../P5S4.hpp"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
