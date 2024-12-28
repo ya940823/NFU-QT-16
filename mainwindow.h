@@ -5,6 +5,8 @@
 #include <QPushButton>
 #include <QFileDialog>
 #include <QLabel>
+#include <QLineEdit>
+#include <cstdlib>
 #include <QDir>
 #include <qdir.h>
 #include "P5CircuitWindow.hpp"

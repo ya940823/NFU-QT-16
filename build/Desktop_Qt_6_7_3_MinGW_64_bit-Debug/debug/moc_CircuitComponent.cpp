@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../CircuitComponent.hpp"
+#include "../../../../../../NFU-QT-16-date1227/NFU-QT-16-date1227/CircuitComponent.hpp"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>
@@ -36,10 +36,11 @@ namespace {
 struct qt_meta_stringdata_CLASSCircuitComponentENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSCircuitComponentENDCLASS = QtMocHelpers::stringData(
     "CircuitComponent",
-    "clicked",
+    "pressed",
     "",
     "CircuitComponent*",
-    "component"
+    "component",
+    "released"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -52,17 +53,19 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSCircuitComponentENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       1,       // signalCount
+       2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   20,    2, 0x06,    1 /* Public */,
+       1,    1,   26,    2, 0x06,    1 /* Public */,
+       5,    1,   29,    2, 0x06,    3 /* Public */,
 
  // signals: parameters
+    QMetaType::Void, 0x80000000 | 3,    4,
     QMetaType::Void, 0x80000000 | 3,    4,
 
        0        // eod
@@ -77,7 +80,10 @@ Q_CONSTINIT const QMetaObject CircuitComponent::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSCircuitComponentENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<CircuitComponent, std::true_type>,
-        // method 'clicked'
+        // method 'pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<CircuitComponent *, std::false_type>,
+        // method 'released'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<CircuitComponent *, std::false_type>
     >,
@@ -90,7 +96,8 @@ void CircuitComponent::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         auto *_t = static_cast<CircuitComponent *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->clicked((*reinterpret_cast< std::add_pointer_t<CircuitComponent*>>(_a[1]))); break;
+        case 0: _t->pressed((*reinterpret_cast< std::add_pointer_t<CircuitComponent*>>(_a[1]))); break;
+        case 1: _t->released((*reinterpret_cast< std::add_pointer_t<CircuitComponent*>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -103,13 +110,27 @@ void CircuitComponent::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
                 *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< CircuitComponent* >(); break;
             }
             break;
+        case 1:
+            switch (*reinterpret_cast<int*>(_a[1])) {
+            default: *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType(); break;
+            case 0:
+                *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType::fromType< CircuitComponent* >(); break;
+            }
+            break;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
         int *result = reinterpret_cast<int *>(_a[0]);
         {
             using _t = void (CircuitComponent::*)(CircuitComponent * );
-            if (_t _q_method = &CircuitComponent::clicked; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (_t _q_method = &CircuitComponent::pressed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (CircuitComponent::*)(CircuitComponent * );
+            if (_t _q_method = &CircuitComponent::released; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 1;
                 return;
             }
         }
@@ -137,21 +158,155 @@ int CircuitComponent::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }
 
 // SIGNAL 0
-void CircuitComponent::clicked(CircuitComponent * _t1)
+void CircuitComponent::pressed(CircuitComponent * _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 0, _a);
+}
+
+// SIGNAL 1
+void CircuitComponent::released(CircuitComponent * _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 1, _a);
+}
+namespace {
+
+#ifdef QT_MOC_HAS_STRINGDATA
+struct qt_meta_stringdata_CLASSPB1ButtonENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSPB1ButtonENDCLASS = QtMocHelpers::stringData(
+    "PB1Button",
+    "pressed",
+    "",
+    "released"
+);
+#else  // !QT_MOC_HAS_STRINGDATA
+#error "qtmochelpers.h not found or too old."
+#endif // !QT_MOC_HAS_STRINGDATA
+} // unnamed namespace
+
+Q_CONSTINIT static const uint qt_meta_data_CLASSPB1ButtonENDCLASS[] = {
+
+ // content:
+      12,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       2,   14, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       2,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   26,    2, 0x06,    1 /* Public */,
+       3,    0,   27,    2, 0x06,    2 /* Public */,
+
+ // signals: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+
+       0        // eod
+};
+
+Q_CONSTINIT const QMetaObject PB1Button::staticMetaObject = { {
+    QMetaObject::SuperData::link<QPushButton::staticMetaObject>(),
+    qt_meta_stringdata_CLASSPB1ButtonENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSPB1ButtonENDCLASS,
+    qt_static_metacall,
+    nullptr,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSPB1ButtonENDCLASS_t,
+        // Q_OBJECT / Q_GADGET
+        QtPrivate::TypeAndForceComplete<PB1Button, std::true_type>,
+        // method 'pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'released'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
+    >,
+    nullptr
+} };
+
+void PB1Button::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+{
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<PB1Button *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->pressed(); break;
+        case 1: _t->released(); break;
+        default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (PB1Button::*)();
+            if (_t _q_method = &PB1Button::pressed; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 0;
+                return;
+            }
+        }
+        {
+            using _t = void (PB1Button::*)();
+            if (_t _q_method = &PB1Button::released; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 1;
+                return;
+            }
+        }
+    }
+    (void)_a;
+}
+
+const QMetaObject *PB1Button::metaObject() const
+{
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
+}
+
+void *PB1Button::qt_metacast(const char *_clname)
+{
+    if (!_clname) return nullptr;
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSPB1ButtonENDCLASS.stringdata0))
+        return static_cast<void*>(this);
+    return QPushButton::qt_metacast(_clname);
+}
+
+int PB1Button::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+{
+    _id = QPushButton::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 2)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 2;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 2)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 2;
+    }
+    return _id;
+}
+
+// SIGNAL 0
+void PB1Button::pressed()
+{
+    QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
+}
+
+// SIGNAL 1
+void PB1Button::released()
+{
+    QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 QT_WARNING_POP

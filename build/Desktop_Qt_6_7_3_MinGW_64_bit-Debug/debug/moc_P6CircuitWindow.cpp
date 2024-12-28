@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../P6CircuitWindow.hpp"
+#include "../../../../../../NFU-QT-16-date1227/NFU-QT-16-date1227/P6CircuitWindow.hpp"
 #include <QtCore/qmetatype.h>
 
 #include <QtCore/qtmochelpers.h>

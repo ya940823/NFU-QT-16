@@ -30,11 +30,11 @@ void MainWindow::onButton1_clicked()
 
     // Initialize P5CircuitWindow with the scene
     srand(time(NULL));
-    int number = rand() % 6 + 1; // random number
-    qDebug() << number;
-    P5CircuitWindow = new class P5CircuitWindow(scene);
-    P5CircuitWindow->resetCircuit();
-    /*switch (number){
+    int Randomnumber = rand() % 6 + 1; // random number
+    //qDebug() << Randomnumber;
+    //P5CircuitWindow = new class P5CircuitWindow(scene);
+    //P5CircuitWindow->resetCircuit();
+    switch (Randomnumber){
     case 1:
         P5S1 = new class P5S1(scene);
         P5S1->resetCircuit();
@@ -63,7 +63,7 @@ void MainWindow::onButton1_clicked()
         P5S7 = new class P5S7(scene);
         P5S7->resetCircuit();
         break;
-    }*/
+    }
 
 
     // Create a new QWidget to display the scene
@@ -84,18 +84,17 @@ void MainWindow::onButton1_clicked()
     QHBoxLayout *buttonLayout = new QHBoxLayout();
 
     // Create buttons
-    QPushButton *button1 = new QPushButton("Open PNG 1", window);
+    QPushButton *button1 = new QPushButton("Open P5Circuit", window);
     QPushButton *button2 = new QPushButton("Open PNG 2", window);
     QPushButton *button3 = new QPushButton("Open New Window", window);
 
-    //QString resourcesPath = QDir::currentPath() + "/resources/";
-    QString resourcesPath = QCoreApplication::applicationDirPath() + "/resources/";
+    QString resourcesPath = QDir::currentPath();
+    QString curPath = resourcesPath.section('/', 0, -3) + "/resources/";
+    //QString resourcesPath = QCoreApplication::applicationDirPath() + "/resources/";
+    //QString resourcesPath = QString(__FILE__).section('/', 0, -2) + "/resources/";
 
-
-    // Connect buttons to actions
-    connect(button1, &QPushButton::clicked, this, [resourcesPath]() {
-        //QString fileName = QFileDialog::getOpenFileName(window, "Open PNG File", "C:\\Users\\user\\Downloads\\NFU-QT-16-date1227\\NFU-QT-16-date1227\\P5circuit.png");
-        QString fileName = resourcesPath + "P5circuit.png";
+    connect(button1, &QPushButton::clicked, this, [curPath]() {
+        QString fileName = curPath + "P5circuit.png";
         qDebug() << "Current working directory:" << QDir::currentPath();
         qDebug() << fileName;
         QLabel *label = new QLabel();
@@ -106,10 +105,10 @@ void MainWindow::onButton1_clicked()
         label->show();
     });
 
-    connect(button2, &QPushButton::clicked, this, [window]() {
-        QString fileName = QFileDialog::getOpenFileName(window, "Open PNG File", "", "Images (*.png)");
+    connect(button2, &QPushButton::clicked, this, [curPath]() {
+        QString fileName = curPath + "P5work.png";
         if (!fileName.isEmpty()) {
-            QLabel *label = new QLabel(window);
+            QLabel *label = new QLabel();
             QPixmap pixmap(fileName);
             label->setPixmap(pixmap);
             label->setWindowFlags(Qt::Window);
@@ -118,9 +117,69 @@ void MainWindow::onButton1_clicked()
         }
     });
 
-    connect(button3, &QPushButton::clicked, this, [this]() {
+    connect(button3, &QPushButton::clicked, this, [this, curPath, Randomnumber]() {
+        // Create a new window
         QWidget *newWindow = new QWidget();
         newWindow->setWindowTitle("New Window");
+
+        // Create layout for the new window
+        QVBoxLayout *newLayout = new QVBoxLayout(newWindow);
+
+        // Add a QLabel to display the PNG
+        QLabel *imageLabel = new QLabel(newWindow);
+        QString fileName = curPath + "P5ans.png"; // Specify the path to the PNG file
+        QPixmap pixmap(fileName);
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setAlignment(Qt::AlignCenter);
+
+        // Add a QLineEdit for text input
+        QLineEdit *lineEdit = new QLineEdit(newWindow);
+        lineEdit->setPlaceholderText("Enter text here...");
+
+        // Add a QPushButton to submit the text
+        QPushButton *submitButton = new QPushButton("Submit", newWindow);
+        connect(submitButton, &QPushButton::clicked, this, [lineEdit, newWindow, Randomnumber]() {
+            QString inputText = lineEdit->text();
+            qDebug() << "Submitted Text:" << inputText;
+
+            // Close the original window
+            newWindow->close();
+
+            // Create a new confirmation window
+            QWidget *confirmationWindow = new QWidget();
+            confirmationWindow->setWindowTitle("Confirmation");
+
+            // Add a layout to the confirmation window
+            QVBoxLayout *confirmationLayout = new QVBoxLayout(confirmationWindow);
+
+            // Add a label to display the submitted text
+            std::string str = inputText.toStdString();
+            QString confirmText;
+            if(str == "S" + std::to_string(Randomnumber) || str == "s" + std::to_string(Randomnumber) || str == std::to_string(Randomnumber)) {
+                confirmText = "Correct!";
+            }else{
+                confirmText = "Wrong!";
+            }
+                //
+            QLabel *confirmationLabel = new QLabel(confirmText, confirmationWindow);
+            confirmationLabel->setAlignment(Qt::AlignCenter);
+
+            // Add the label to the layout
+            confirmationLayout->addWidget(confirmationLabel);
+
+            // Set layout and show the confirmation window
+            confirmationWindow->setLayout(confirmationLayout);
+            confirmationWindow->resize(300, 200);
+            confirmationWindow->show();
+        });
+
+        // Add widgets to the layout
+        newLayout->addWidget(imageLabel);
+        newLayout->addWidget(lineEdit);
+        newLayout->addWidget(submitButton);
+
+        // Set layout and show the window
+        newWindow->setLayout(newLayout);
         newWindow->resize(400, 300);
         newWindow->show();
     });

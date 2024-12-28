@@ -23,9 +23,9 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *button2;
-    QPushButton *button3;
-    QPushButton *button1;
+    QPushButton *P6;
+    QPushButton *P7;
+    QPushButton *P5;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -36,15 +36,15 @@ public:
         MainWindow->resize(800, 600);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        button2 = new QPushButton(centralwidget);
-        button2->setObjectName("button2");
-        button2->setGeometry(QRect(310, 200, 75, 23));
-        button3 = new QPushButton(centralwidget);
-        button3->setObjectName("button3");
-        button3->setGeometry(QRect(310, 280, 75, 23));
-        button1 = new QPushButton(centralwidget);
-        button1->setObjectName("button1");
-        button1->setGeometry(QRect(310, 120, 75, 23));
+        P6 = new QPushButton(centralwidget);
+        P6->setObjectName("P6");
+        P6->setGeometry(QRect(310, 200, 75, 23));
+        P7 = new QPushButton(centralwidget);
+        P7->setObjectName("P7");
+        P7->setGeometry(QRect(310, 280, 75, 23));
+        P5 = new QPushButton(centralwidget);
+        P5->setObjectName("P5");
+        P5->setGeometry(QRect(310, 120, 75, 23));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -62,9 +62,9 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        button2->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
-        button3->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
-        button1->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        P6->setText(QCoreApplication::translate("MainWindow", "P6", nullptr));
+        P7->setText(QCoreApplication::translate("MainWindow", "P7", nullptr));
+        P5->setText(QCoreApplication::translate("MainWindow", "P5", nullptr));
     } // retranslateUi
 
 };
