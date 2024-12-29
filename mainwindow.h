@@ -19,6 +19,14 @@
 #include "P5S5.hpp"
 #include "P5S6.hpp"
 #include "P5S7.hpp"
+#include "P6S1.hpp"
+#include "P6S2.hpp"
+#include "P6S3.hpp"
+#include "P6S4.hpp"
+#include "P6S5.hpp"
+#include "P6S6.hpp"
+#include "P6S7.hpp"
+#include "P6S8.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -30,6 +38,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    int random(int);
     ~MainWindow();
 
 private slots:
@@ -41,15 +50,23 @@ private slots:
 private:
     Ui::MainWindow *ui;
     P5CircuitWindow *P5CircuitWindow;
-    P6CircuitWindow *P6CircuitWindow;
+    P6S5 *P6CircuitWindow;
     P7CircuitWindow *P7CircuitWindow;
-    P5S4 *P5S4;
     P5S1 *P5S1;
     P5S2 *P5S2;
     P5S3 *P5S3;
+    P5S4 *P5S4;
     P5S5 *P5S5;
     P5S6 *P5S6;
     P5S7 *P5S7;
+    P6S1 *P6S1;
+    P6S2 *P6S2;
+    P6S3 *P6S3;
+    P6S4 *P6S4;
+    P6S5 *P6S5;
+    P6S6 *P6S6;
+    P6S7 *P6S7;
+    P6S8 *P6S8;
 };
 #endif // MAINWINDOW_H
 //正常

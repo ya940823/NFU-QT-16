@@ -19,6 +19,14 @@ SOURCES += \
     P5S6.cpp \
     P5S7.cpp \
     P6CircuitWindow.cpp \
+    P6S1.cpp \
+    P6S2.cpp \
+    P6S3.cpp \
+    P6S4.cpp \
+    P6S5.cpp \
+    P6S6.cpp \
+    P6S7.cpp \
+    P6S8.cpp \
     P7CircuitWindow.cpp \
     main.cpp \
     mainwindow.cpp
@@ -34,6 +42,14 @@ HEADERS += \
     P5S6.hpp \
     P5S7.hpp \
     P6CircuitWindow.hpp \
+    P6S1.hpp \
+    P6S2.hpp \
+    P6S3.hpp \
+    P6S4.hpp \
+    P6S5.hpp \
+    P6S6.hpp \
+    P6S7.hpp \
+    P6S8.hpp \
     P7CircuitWindow.hpp \
     mainwindow.h
 

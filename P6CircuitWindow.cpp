@@ -202,24 +202,20 @@ void P6CircuitWindow::handleol1Pressed() {
         resetCircuit();
         bz->setOn(true);
         pl3->setOn(false);
-        pl4->setOn(false);
     }
     else if(!cos1->isActive() && ol1->isActive()){
         //thry up
         resetCircuit();
         bz->setOn(false);
         pl3->setOn(true);
-        pl4->setOn(false);
     }
     else if(cos1->isActive() && !ol1->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
     else if(!cos1->isActive() && !ol1->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
 }
 
@@ -234,24 +230,20 @@ void P6CircuitWindow::handleol2Pressed() {
         resetCircuit();
         bz->setOn(true);
         pl3->setOn(false);
-        pl4->setOn(false);
     }
     else if(!cos1->isActive() && ol2->isActive()){
         //thry up
         resetCircuit();
         bz->setOn(false);
         pl3->setOn(true);
-        pl4->setOn(false);
     }
     else if(cos1->isActive() && !ol2->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
     else if(!cos1->isActive() && !ol2->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
 }
 
@@ -266,23 +258,19 @@ void P6CircuitWindow::handleol3Pressed() {
         resetCircuit();
         bz->setOn(true);
         pl3->setOn(false);
-        pl4->setOn(false);
     }
     else if(!cos1->isActive() && ol3->isActive()){
         //thry up
         resetCircuit();
         bz->setOn(false);
         pl3->setOn(true);
-        pl4->setOn(false);
     }
     else if(cos1->isActive() && !ol3->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
     else if(!cos1->isActive() && !ol3->isActive()){
         bz->setOn(false);
         pl3->setOn(false);
-        pl4->setOn(true);
     }
 }

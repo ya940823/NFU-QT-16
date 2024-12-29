@@ -12,7 +12,7 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
 
     // Initialize components
     nfb = new CircuitComponent("NFB");
-    fr = new CircuitComponent("FR");
+    fr = new CircuitComponent("FR"); //
     pb1 = new CircuitComponent("PB1");
     pb2 = new CircuitComponent("PB2");
     pb3 = new CircuitComponent("PB3");
@@ -34,7 +34,7 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
 
     // Set positions
     nfb->setPos(50, 50);
-    fr->setPos(100, 50);
+    fr->setPos(500, 150);
     pb1->setPos(150, 50);
     pb2->setPos(200, 50);
     pb3->setPos(250, 50);
@@ -48,11 +48,11 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     mcr->setPos(200, 150);
     t1->setPos(300, 150);
     t2->setPos(400, 150);
-    ol->setPos(500, 150);
-    pl1->setPos(450, 200);
-    pl2->setPos(500, 200);
-    pl3->setPos(550, 200);
-    pl4->setPos(600, 200);
+    ol->setPos(100, 50);
+    pl1->setPos(50, 250);
+    pl2->setPos(100, 250);
+    pl3->setPos(150, 250);
+    pl4->setPos(200, 250);
 
     // Add to scene
     scene->addItem(nfb);
@@ -76,9 +76,13 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl3);
     scene->addItem(pl4);
 
+    //QTimer timer;// = new QTimer(this);
+
+    QObject::connect(&Framework::timer, &QTimer::timeout, this, &Framework::onTimeout);
     // Connect button signals
     connect(pb1, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB1Pressed);
     connect(pb2, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB2Pressed);
+
 
     resetCircuit();
 }
@@ -108,14 +112,10 @@ void P7CircuitWindow::resetCircuit() {
 
 void P7CircuitWindow::handlePB1Pressed() {
     qDebug() << "PB1 Pressed";
-    mcf->setActive(true);
-    pl1->setOn(true);
 }
 
 void P7CircuitWindow::handlePB2Pressed() {
     qDebug() << "PB2 Pressed";
-    mcr->setActive(true);
-    pl2->setOn(true);
 }
 
 

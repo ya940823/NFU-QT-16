@@ -30,7 +30,8 @@ void MainWindow::onButton1_clicked()
 
     // Initialize P5CircuitWindow with the scene
     srand(time(NULL));
-    int Randomnumber = rand() % 6 + 1; // random number
+    int Randomnumber = rand() % 6 + 1; // random number // 5
+    Randomnumber = MainWindow::random(Randomnumber);
     //qDebug() << Randomnumber;
     //P5CircuitWindow = new class P5CircuitWindow(scene);
     //P5CircuitWindow->resetCircuit();
@@ -51,7 +52,7 @@ void MainWindow::onButton1_clicked()
         P5S4 = new class P5S4(scene);
         P5S4->resetCircuit();
         break;
-    case 5:
+    case 5: //
         P5S5 = new class P5S5(scene);
         P5S5->resetCircuit();
         break;
@@ -217,9 +218,43 @@ void MainWindow::onButton2_clicked()
     // Create a new scene
     QGraphicsScene *scene = new QGraphicsScene(this);
 
-    // Initialize P6CircuitWindow with the scene
-    P6CircuitWindow = new class P6CircuitWindow(scene);
-    P6CircuitWindow->resetCircuit();
+    // Initialize P5CircuitWindow with the scene
+    srand(time(NULL));
+    int Randomnumber = rand() % 6 + 1; // random number
+    //qDebug() << Randomnumber;
+    //P5CircuitWindow = new class P5CircuitWindow(scene);
+    //P5CircuitWindow->resetCircuit();
+    switch (Randomnumber){
+    case 1:
+        P6S1 = new class P6S1(scene);
+        P6S1->resetCircuit();
+        break;
+    case 2:
+        P6S2 = new class P6S2(scene);
+        P6S2->resetCircuit();
+        break;
+    case 3:
+        P6S3 = new class P6S3(scene);
+        P6S3->resetCircuit();
+        break;
+    case 4:
+        P6S4 = new class P6S4(scene);
+        P6S4->resetCircuit();
+        break;
+    case 5: //
+        P6S5 = new class P6S5(scene);
+        P6S5->resetCircuit();
+        break;
+    case 6:
+        P6S6 = new class P6S6(scene);
+        P6S6->resetCircuit();
+        break;
+    case 7:
+        P6S7 = new class P6S7(scene);
+        P6S7->resetCircuit();
+        break;
+    }
+
 
     // Create a new QWidget to display the scene
     QWidget *window = new QWidget();
@@ -235,6 +270,127 @@ void MainWindow::onButton2_clicked()
     // Add the view to the layout
     layout->addWidget(view);
 
+    // Create buttons
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+
+    // Create buttons
+    QPushButton *button1 = new QPushButton("P6電路圖", window);
+    QPushButton *button2 = new QPushButton("P6動作說明", window);
+    QPushButton *button3 = new QPushButton("作答", window);
+
+    QString resourcesPath = QDir::currentPath() + "/resources/";
+    //QString curPath = resourcesPath.section('/', 0, -3) + "/resources/";
+    //QString resourcesPath = QCoreApplication::applicationDirPath() + "/resources/";
+    //QString resourcesPath = QString(__FILE__).section('/', 0, -2) + "/resources/";
+
+    connect(button1, &QPushButton::clicked, this, [resourcesPath]() {
+        QString fileName = resourcesPath + "P6circuit.png";
+        qDebug() << "Current working directory:" << QDir::currentPath();
+        qDebug() << fileName;
+        QLabel *label = new QLabel();
+        QPixmap pixmap(fileName);
+        if (!pixmap.isNull()) {
+            label->setScaledContents(true); // Enable scaling
+            label->setPixmap(pixmap);
+        }
+        label->setWindowFlags(Qt::Window);
+        //label->resize(pixmap.size());
+        label->resize(800, 600);
+        label->setWindowTitle("P6電路圖");
+        //label->setFixedSize(800, 600);
+        label->show();
+    });
+
+    connect(button2, &QPushButton::clicked, this, [resourcesPath]() {
+        QString fileName = resourcesPath + "P6work.png";
+        if (!fileName.isEmpty()) {
+            QLabel *label = new QLabel();
+            QPixmap pixmap(fileName);
+            if (!pixmap.isNull()) {
+                label->setScaledContents(true); // Enable scaling
+                label->setPixmap(pixmap);
+            }
+            label->setWindowFlags(Qt::Window);
+            //label->resize(pixmap.size());
+            label->resize(800, 600);
+            label->setWindowTitle("P6動作說明");
+            label->show();
+        }
+    });
+
+    connect(button3, &QPushButton::clicked, this, [this, resourcesPath, Randomnumber]() {
+        // Create a new window
+        QWidget *newWindow = new QWidget();
+        newWindow->setWindowTitle("作答");
+
+        // Create layout for the new window
+        QVBoxLayout *newLayout = new QVBoxLayout(newWindow);
+
+        // Add a QLabel to display the PNG
+        QLabel *imageLabel = new QLabel(newWindow);
+        QString fileName = resourcesPath + "P6ans.png"; // Specify the path to the PNG file
+        QPixmap pixmap(fileName);
+        imageLabel->setPixmap(pixmap);
+        imageLabel->setAlignment(Qt::AlignCenter);
+
+        // Add a QLineEdit for text input
+        QLineEdit *lineEdit = new QLineEdit(newWindow);
+        lineEdit->setPlaceholderText("Enter text here...");
+
+        // Add a QPushButton to submit the text
+        QPushButton *submitButton = new QPushButton("Submit", newWindow);
+        connect(submitButton, &QPushButton::clicked, this, [lineEdit, newWindow, Randomnumber]() {
+            QString inputText = lineEdit->text();
+            qDebug() << "Submitted Text:" << inputText;
+
+            // Close the original window
+            newWindow->close();
+
+            // Create a new confirmation window
+            QWidget *confirmationWindow = new QWidget();
+            confirmationWindow->setWindowTitle("Confirmation");
+
+            // Add a layout to the confirmation window
+            QVBoxLayout *confirmationLayout = new QVBoxLayout(confirmationWindow);
+
+            // Add a label to display the submitted text
+            std::string str = inputText.toStdString();
+            //QLabel *confirmationLabel = new QLabel(confirmText, confirmationWindow);
+            QLabel *confirmationLabel = new QLabel(confirmationWindow);
+            if(str == "S" + std::to_string(Randomnumber) || str == "s" + std::to_string(Randomnumber) || str == std::to_string(Randomnumber)) {
+                confirmationLabel->setText("Correct Answer!");
+                confirmationLabel->setStyleSheet("color: green; font-size: 24px; font-weight: bold;");
+            }else{
+                confirmationLabel->setText("Wrong Answer.");
+                confirmationLabel->setStyleSheet("color: red; font-size: 24px; font-weight: bold;");
+            }
+            confirmationLabel->setAlignment(Qt::AlignCenter);
+
+            // Add the label to the layout
+            confirmationLayout->addWidget(confirmationLabel);
+
+            // Set layout and show the confirmation window
+            confirmationWindow->setLayout(confirmationLayout);
+            confirmationWindow->resize(300, 200);
+            confirmationWindow->show();
+        });
+
+        // Add widgets to the layout
+        newLayout->addWidget(imageLabel);
+        newLayout->addWidget(lineEdit);
+        newLayout->addWidget(submitButton);
+
+        // Set layout and show the window
+        newWindow->setLayout(newLayout);
+        newWindow->resize(400, 300);
+        newWindow->show();
+    });
+    buttonLayout->addWidget(button1);
+    buttonLayout->addWidget(button2);
+    buttonLayout->addWidget(button3);
+
+    // Add the horizontal button layout to the main layout
+    layout->addLayout(buttonLayout);
     // Set layout for the window
     window->setLayout(layout);
     window->resize(800, 600);
@@ -289,4 +445,8 @@ void MainWindow::on_return_to_main_clicked()
     if (currentWindow) {
         currentWindow->close();
     }
+}
+
+int MainWindow::random(int x){
+    return x % 5 ? ++x : x;
 }
