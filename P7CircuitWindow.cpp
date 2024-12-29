@@ -12,57 +12,69 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
 
     // Initialize components
     nfb = new CircuitComponent("NFB");
-    cos1 = new CircuitComponent("COS1");
+    fr = new CircuitComponent("FR");
     pb1 = new CircuitComponent("PB1");
     pb2 = new CircuitComponent("PB2");
+    pb3 = new CircuitComponent("PB3");
+    pb4 = new CircuitComponent("PB4");
     x1 = new CircuitComponent("X1");
-    ol1 = new CircuitComponent("OL1");
-    ol2 = new CircuitComponent("OL2");
-    ol3 = new CircuitComponent("OL3");
-    mc1 = new CircuitComponent("MC1");
-    mc2 = new CircuitComponent("MC2");
-    mc3 = new CircuitComponent("MC3");
+    x2 = new CircuitComponent("X2");
+    x3 = new CircuitComponent("X3");
+    ls1 = new CircuitComponent("LS1");
+    ls2 = new CircuitComponent("LS2");
+    mcf = new CircuitComponent("MCF");
+    mcr = new CircuitComponent("MCR");
     t1 = new CircuitComponent("T1");
     t2 = new CircuitComponent("T2");
+    ol = new CircuitComponent("OL");
     pl1 = new CircuitLamp("PL1");
     pl2 = new CircuitLamp("PL2");
     pl3 = new CircuitLamp("PL3");
     pl4 = new CircuitLamp("PL4");
-    bz = new CircuitLamp("BZ");
 
     // Set positions
     nfb->setPos(50, 50);
-    cos1->setPos(100, 50);
+    fr->setPos(100, 50);
     pb1->setPos(150, 50);
     pb2->setPos(200, 50);
-    x1->setPos(250, 50);
-    mc1->setPos(100, 150);
-    mc2->setPos(200, 150);
-    mc3->setPos(300, 150);
-    t1->setPos(400, 150);
-    t2->setPos(500, 150);
-    pl1->setPos(450, 50);
-    pl2->setPos(500, 50);
-    pl3->setPos(550, 50);
-    pl4->setPos(600, 50);
-    bz->setPos(650, 50);
+    pb3->setPos(250, 50);
+    pb4->setPos(300, 50);
+    x1->setPos(350, 50);
+    x2->setPos(400, 50);
+    x3->setPos(450, 50);
+    ls1->setPos(500, 50);
+    ls2->setPos(550, 50);
+    mcf->setPos(100, 150);
+    mcr->setPos(200, 150);
+    t1->setPos(300, 150);
+    t2->setPos(400, 150);
+    ol->setPos(500, 150);
+    pl1->setPos(450, 200);
+    pl2->setPos(500, 200);
+    pl3->setPos(550, 200);
+    pl4->setPos(600, 200);
 
     // Add to scene
     scene->addItem(nfb);
-    scene->addItem(cos1);
+    scene->addItem(fr);
     scene->addItem(pb1);
     scene->addItem(pb2);
+    scene->addItem(pb3);
+    scene->addItem(pb4);
     scene->addItem(x1);
-    scene->addItem(mc1);
-    scene->addItem(mc2);
-    scene->addItem(mc3);
+    scene->addItem(x2);
+    scene->addItem(x3);
+    scene->addItem(ls1);
+    scene->addItem(ls2);
+    scene->addItem(mcf);
+    scene->addItem(mcr);
     scene->addItem(t1);
     scene->addItem(t2);
+    scene->addItem(ol);
     scene->addItem(pl1);
     scene->addItem(pl2);
     scene->addItem(pl3);
     scene->addItem(pl4);
-    scene->addItem(bz);
 
     // Connect button signals
     connect(pb1, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB1Pressed);
@@ -73,33 +85,54 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
 
 void P7CircuitWindow::resetCircuit() {
     nfb->setActive(true);
-    cos1->setActive(false);
+    fr->setActive(false);
     pb1->setActive(false);
     pb2->setActive(false);
+    pb3->setActive(false);
+    pb4->setActive(false);
     x1->setActive(false);
-    mc1->setActive(false);
-    mc2->setActive(false);
-    mc3->setActive(false);
+    x2->setActive(false);
+    x3->setActive(false);
+    ls1->setActive(false);
+    ls2->setActive(false);
+    mcf->setActive(false);
+    mcr->setActive(false);
     t1->setActive(false);
     t2->setActive(false);
+    ol->setActive(false);
     pl1->setOn(false);
     pl2->setOn(false);
     pl3->setOn(false);
     pl4->setOn(false);
-    bz->setOn(false);
 }
 
 void P7CircuitWindow::handlePB1Pressed() {
     qDebug() << "PB1 Pressed";
+    mcf->setActive(true);
+    pl1->setOn(true);
 }
 
 void P7CircuitWindow::handlePB2Pressed() {
     qDebug() << "PB2 Pressed";
+    mcr->setActive(true);
+    pl2->setOn(true);
 }
+
 
 void P7CircuitWindow::stopMotor() {
     qDebug() << "Stopping Motor";
-}
-
-void P7CircuitWindow::handlecos1Pressed() {
+    mcf->setActive(false);
+    mcr->setActive(false);
+    x1->setActive(false);
+    x2->setActive(false);
+    x3->setActive(false);
+    ls1->setActive(false);
+    ls2->setActive(false);
+    t1->setActive(false);
+    t2->setActive(false);
+    ol->setActive(false);
+    pl1->setOn(false);
+    pl2->setOn(false);
+    pl3->setOn(false);
+    pl4->setOn(false);
 }
