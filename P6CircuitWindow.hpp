@@ -16,10 +16,10 @@ public:
 
 private slots:
     void handlePB1Pressed();
-    //void handlePB1Released();
+    void handlePB1Released();
     void handlePB2Pressed();
     void handlecos1Pressed();
-
+    void handleOLPressed();
 private:
     void stopMotor();
 
@@ -28,7 +28,6 @@ private:
 
     CircuitComponent *nfb;
     CircuitComponent *cos1;
-    CircuitComponent *x1;
     CircuitComponent *pb1;
     CircuitComponent *pb2;
 
@@ -40,6 +39,7 @@ private:
     CircuitComponent *mc3;
     CircuitComponent *t1;
     CircuitComponent *t2;
+    CircuitComponent *x1;
 
     CircuitLamp *pl1;
     CircuitLamp *pl2;

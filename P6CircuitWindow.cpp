@@ -15,7 +15,6 @@ P6CircuitWindow::P6CircuitWindow(QGraphicsScene *scene, QObject *parent)
     cos1 = new CircuitComponent("COS1");
     pb1 = new CircuitComponent("PB1");
     pb2 = new CircuitComponent("PB2");
-    x1 = new CircuitComponent("X1");
     ol1 = new CircuitComponent("OL1");
     ol2 = new CircuitComponent("OL2");
     ol3 = new CircuitComponent("OL3");
@@ -24,6 +23,7 @@ P6CircuitWindow::P6CircuitWindow(QGraphicsScene *scene, QObject *parent)
     mc3 = new CircuitComponent("MC3");
     t1 = new CircuitComponent("T1");
     t2 = new CircuitComponent("T2");
+    x1 = new CircuitComponent("X1");
     pl1 = new CircuitLamp("PL1");
     pl2 = new CircuitLamp("PL2");
     pl3 = new CircuitLamp("PL3");
@@ -35,7 +35,10 @@ P6CircuitWindow::P6CircuitWindow(QGraphicsScene *scene, QObject *parent)
     cos1->setPos(100, 50);
     pb1->setPos(150, 50);
     pb2->setPos(200, 50);
-    x1->setPos(250, 50);
+    ol1->setPos(250, 50);
+    ol2->setPos(300, 50);
+    ol3->setPos(350, 50);
+    x1->setPos(600, 150);
     mc1->setPos(100, 150);
     mc2->setPos(200, 150);
     mc3->setPos(300, 150);
@@ -63,11 +66,32 @@ P6CircuitWindow::P6CircuitWindow(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl3);
     scene->addItem(pl4);
     scene->addItem(bz);
+    scene->addItem(ol1);
+    scene->addItem(ol2);
+    scene->addItem(ol3);
+
+    // Initialize PB1 button
+    PB1Button *pb1Button = new PB1Button("PB1");
+    pb1Button->setFixedSize(50, 50);
+
+    // Add button to scene using QGraphicsProxyWidget
+    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
+    proxy->setPos(150, 50);
 
     // Connect button signals
-    connect(pb1, &CircuitComponent::pressed, this, &P6CircuitWindow::handlePB1Pressed);
-    connect(pb2, &CircuitComponent::pressed, this, &P6CircuitWindow::handlePB2Pressed);
+    connect(pb1Button, &PB1Button::pressed, this, &P6CircuitWindow::handlePB1Pressed);
+    connect(pb1Button, &PB1Button::released, this, &P6CircuitWindow::handlePB1Released);
 
+    // Connect PB2 button signal for motor start
+    connect(pb2, &CircuitComponent::pressed, this, &P6CircuitWindow::handlePB2Pressed);
+    connect(cos1, &CircuitComponent::pressed, this, &P6CircuitWindow::handlecos1Pressed);
+
+    // Connect OL button signal for motor start
+    connect(ol1, &CircuitComponent::pressed, this, &P6CircuitWindow::handleOLPressed);
+    connect(ol2, &CircuitComponent::pressed, this, &P6CircuitWindow::handleOLPressed);
+    connect(ol3, &CircuitComponent::pressed, this, &P6CircuitWindow::handleOLPressed);
+
+    // Reset circuit
     resetCircuit();
 }
 
@@ -91,52 +115,22 @@ void P6CircuitWindow::resetCircuit() {
 
 void P6CircuitWindow::handlePB1Pressed() {
     qDebug() << "PB1 Pressed";
-    mc1->setActive(true);
-    pl1->setOn(true);
-    QTimer::singleShot(2000, this, [this]() {
-        mc1->setActive(false);
-        mc2->setActive(true);
-        pl2->setOn(true);
-        QTimer::singleShot(2000, this, [this]() {
-            mc2->setActive(false);
-            mc3->setActive(true);
-            pl4->setOn(true);
-        });
-    });
+}
+
+void P6CircuitWindow::handlePB1Released() {
+    qDebug() << "PB1 Released";
 }
 
 void P6CircuitWindow::handlePB2Pressed() {
     qDebug() << "PB2 Pressed";
-    mc3->setActive(false);
-    pl4->setOn(false);
-    QTimer::singleShot(2000, this, [this]() {
-        mc2->setActive(false);
-        pl2->setOn(false);
-        QTimer::singleShot(2000, this, [this]() {
-            mc1->setActive(false);
-            pl1->setOn(false);
-        });
-    });
-}
-
-void P6CircuitWindow::stopMotor() {
-    qDebug() << "Stopping Motor";
-    mc1->setActive(false);
-    mc2->setActive(false);
-    mc3->setActive(false);
-    pl1->setOn(false);
-    pl2->setOn(false);
-    pl3->setOn(false);
-    pl4->setOn(false);
-    bz->setOn(false);
 }
 
 void P6CircuitWindow::handlecos1Pressed() {
-    if (ol1->isActive() || ol2->isActive() || ol3->isActive()) {
-        if (cos1->isActive()) {
-            bz->setOn(true);
-        } else {
-            pl3->setOn(true);
-        }
-    }
+    qDebug() << "COS1 Pressed";
+}
+void P6CircuitWindow::handleOLPressed() {
+    qDebug() << "OL Pressed";
+}
+void P6CircuitWindow::stopMotor() {
+    qDebug() << "Stopping Motor";
 }
