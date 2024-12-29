@@ -88,13 +88,13 @@ void MainWindow::onButton1_clicked()
     QPushButton *button2 = new QPushButton("P5動作說明", window);
     QPushButton *button3 = new QPushButton("作答", window);
 
-    QString resourcesPath = QDir::currentPath();
-    QString curPath = resourcesPath.section('/', 0, -3) + "/resources/";
+    QString resourcesPath = QDir::currentPath() + "/resources/";
+    //QString curPath = resourcesPath.section('/', 0, -3) + "/resources/";
     //QString resourcesPath = QCoreApplication::applicationDirPath() + "/resources/";
     //QString resourcesPath = QString(__FILE__).section('/', 0, -2) + "/resources/";
 
-    connect(button1, &QPushButton::clicked, this, [curPath]() {
-        QString fileName = curPath + "P5circuit.png";
+    connect(button1, &QPushButton::clicked, this, [resourcesPath]() {
+        QString fileName = resourcesPath + "P5circuit.png";
         qDebug() << "Current working directory:" << QDir::currentPath();
         qDebug() << fileName;
         QLabel *label = new QLabel();
@@ -111,8 +111,8 @@ void MainWindow::onButton1_clicked()
         label->show();
     });
 
-    connect(button2, &QPushButton::clicked, this, [curPath]() {
-        QString fileName = curPath + "P5work.png";
+    connect(button2, &QPushButton::clicked, this, [resourcesPath]() {
+        QString fileName = resourcesPath + "P5work.png";
         if (!fileName.isEmpty()) {
             QLabel *label = new QLabel();
             QPixmap pixmap(fileName);
@@ -128,7 +128,7 @@ void MainWindow::onButton1_clicked()
         }
     });
 
-    connect(button3, &QPushButton::clicked, this, [this, curPath, Randomnumber]() {
+    connect(button3, &QPushButton::clicked, this, [this, resourcesPath, Randomnumber]() {
         // Create a new window
         QWidget *newWindow = new QWidget();
         newWindow->setWindowTitle("作答");
@@ -138,7 +138,7 @@ void MainWindow::onButton1_clicked()
 
         // Add a QLabel to display the PNG
         QLabel *imageLabel = new QLabel(newWindow);
-        QString fileName = curPath + "P5ans.png"; // Specify the path to the PNG file
+        QString fileName = resourcesPath + "P5ans.png"; // Specify the path to the PNG file
         QPixmap pixmap(fileName);
         imageLabel->setPixmap(pixmap);
         imageLabel->setAlignment(Qt::AlignCenter);
