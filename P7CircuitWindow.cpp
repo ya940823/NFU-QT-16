@@ -5,7 +5,7 @@
 #include <QTimer>
 
 P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
-    : QObject(parent), scene(scene) {
+    : QObject(parent), scene(scene),frTimer(new QTimer(this)),FRBlinking(false) {
     view = new QGraphicsView(scene);
     view->setRenderHint(QPainter::Antialiasing);
     scene->setSceneRect(0, 0, 800, 600);
@@ -31,6 +31,7 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     pl2 = new CircuitLamp("PL2");
     pl3 = new CircuitLamp("PL3");
     pl4 = new CircuitLamp("PL4");
+    bz  = new CircuitLamp("BZ");
 
     // Set positions
     nfb->setPos(50, 50);
@@ -53,7 +54,7 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     pl2->setPos(100, 250);
     pl3->setPos(150, 250);
     pl4->setPos(200, 250);
-
+    bz->setPos(250, 250);
     // Add to scene
     scene->addItem(nfb);
     scene->addItem(fr);
@@ -75,16 +76,53 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl2);
     scene->addItem(pl3);
     scene->addItem(pl4);
-
+    scene->addItem(bz);
     //QTimer timer;// = new QTimer(this);
-
-    QObject::connect(&Framework::timer, &QTimer::timeout, this, &Framework::onTimeout);
+    frTimer->setInterval(500);
+    connect(frTimer, &QTimer::timeout, this, &P7CircuitWindow::toggleFR);
+    connect(fr, &CircuitComponent::pressed, this, &P7CircuitWindow::handleFRPressed);
     // Connect button signals
     connect(pb1, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB1Pressed);
     connect(pb2, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB2Pressed);
-
-
     resetCircuit();
+}
+void P7CircuitWindow::handleFRPressed() {
+    if (FRBlinking) {
+        FRBlinking = false;
+        frTimer->stop();
+        qDebug() << "FR toggling stopped";
+    } else {
+        FRBlinking = true;
+        frTimer->start();
+        qDebug() << "FR toggling started";
+    }
+
+    fr->setActive(true);
+}
+
+
+
+void P7CircuitWindow::toggleFR() {
+    static bool bzState = false;
+
+    if (!FRBlinking) {
+        // 確保在停止時不再切換狀態
+        bz->setOn(false);
+        pl4->setOn(true);
+        return;
+    }
+
+    bzState = !bzState;
+
+    if (bzState) {
+        qDebug() << "BZ ON, PL4 OFF";
+        bz->setOn(true);
+        pl4->setOn(false);
+    } else {
+        qDebug() << "BZ OFF, PL4 ON";
+        bz->setOn(false);
+        pl4->setOn(true);
+    }
 }
 
 void P7CircuitWindow::resetCircuit() {
@@ -108,10 +146,23 @@ void P7CircuitWindow::resetCircuit() {
     pl2->setOn(false);
     pl3->setOn(false);
     pl4->setOn(false);
+    bz->setOn(false);  // 確保 BZ 關閉
+    FRBlinking = false;
+    frTimer->stop();
+
 }
 
 void P7CircuitWindow::handlePB1Pressed() {
-    qDebug() << "PB1 Pressed";
+    if (FRBlinking) {
+        FRBlinking = false;
+        frTimer->stop();
+        fr->setActive(false);  // 關閉 FR
+        bz->setOn(false);      // 確保 BZ 關閉
+        pl4->setOn(true);      // 打開 PL4
+        qDebug() << "PB1 pressed, FR OFF, PL4 ON, BZ OFF";
+    } else {
+        qDebug() << "PB1 pressed, but FR is not active";
+    }
 }
 
 void P7CircuitWindow::handlePB2Pressed() {

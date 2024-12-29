@@ -19,6 +19,8 @@ private slots:
     //void handlePB1Released();
     void handlePB2Pressed();
     //void onTimeout();
+    void handleFRPressed();
+    void toggleFR();
 
 private:
     void stopMotor();
@@ -48,6 +50,9 @@ private:
     CircuitLamp *pl2;
     CircuitLamp *pl3;
     CircuitLamp *pl4;
+    CircuitLamp *bz;
+    QTimer *frTimer;
+    bool FRBlinking;
 };
 
 #endif // P6CIRCUITWINDOW_HPP

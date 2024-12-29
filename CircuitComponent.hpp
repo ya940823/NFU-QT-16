@@ -91,37 +91,5 @@ protected:
     }
 };
 
-class Framework : public QObject {
-    Q_OBJECT
-
-public:
-    QTimer* timer;
-    Framework(QObject* parent = nullptr) : QObject(parent) {
-        // 創建 QTimer
-        timer = new QTimer(this);
-
-        // 連接定時器的 timeout 信號到自定義槽
-        connect(timer, &QTimer::timeout, this, &Framework::onTimeout);
-
-        // 設置定時器間隔為 500 毫秒
-        timer->setInterval(500);
-
-        // 啟動定時器
-        timer->start();
-    }
-
-    ~Framework() {
-        // QTimer 將由父類自動管理和釋放
-    }
-
-public slots:
-    void onTimeout() {
-        // 這是定時觸發的函數
-        qDebug() << "自定義函數觸發，每 0.5 秒執行一次";
-    }
-
-private:
-    //QTimer* timer;  // QTimer 的指針
-};
 
 #endif // CIRCUITCOMPONENT_HPP
