@@ -11,6 +11,7 @@
 #include <qdir.h>
 #include "P5CircuitWindow.hpp"
 #include "P6CircuitWindow.hpp"
+#include "P7CircuitWindow.hpp"
 #include "P5S1.hpp"
 #include "P5S2.hpp"
 #include "P5S3.hpp"
@@ -41,6 +42,7 @@ private:
     Ui::MainWindow *ui;
     P5CircuitWindow *P5CircuitWindow;
     P6CircuitWindow *P6CircuitWindow;
+    P7CircuitWindow *P7CircuitWindow;
     P5S4 *P5S4;
     P5S1 *P5S1;
     P5S2 *P5S2;

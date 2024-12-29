@@ -1,19 +1,51 @@
 #ifndef P7CIRCUITWINDOW_HPP
 #define P7CIRCUITWINDOW_HPP
 
-#include <QWidget>
+#include <QObject>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include "CircuitComponent.hpp"
 
-class P7CircuitWindow : public QWidget
-{
+class P7CircuitWindow : public QObject {
     Q_OBJECT
+
 public:
-    explicit P7CircuitWindow(QWidget *parent = nullptr);
+    explicit P7CircuitWindow(QGraphicsScene *scene, QObject *parent = nullptr);
+
+    void resetCircuit();
+
+private slots:
+    void handlePB1Pressed();
+    //void handlePB1Released();
+    void handlePB2Pressed();
+    void handlecos1Pressed();
 
 private:
+    void stopMotor();
+
     QGraphicsScene *scene;
     QGraphicsView *view;
+
+    CircuitComponent *nfb;
+    CircuitComponent *cos1;
+    CircuitComponent *x1;
+    CircuitComponent *pb1;
+    CircuitComponent *pb2;
+
+    CircuitComponent *ol1;
+    CircuitComponent *ol2;
+    CircuitComponent *ol3;
+    CircuitComponent *mc1;
+    CircuitComponent *mc2;
+    CircuitComponent *mc3;
+    CircuitComponent *t1;
+    CircuitComponent *t2;
+
+    CircuitLamp *pl1;
+    CircuitLamp *pl2;
+    CircuitLamp *pl3;
+    CircuitLamp *pl4;
+    CircuitLamp *bz;
 };
 
-#endif // P7CIRCUITWINDOW_HPP
+#endif // P6CIRCUITWINDOW_HPP

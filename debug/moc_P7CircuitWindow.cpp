@@ -35,7 +35,11 @@ namespace {
 #ifdef QT_MOC_HAS_STRINGDATA
 struct qt_meta_stringdata_CLASSP7CircuitWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSP7CircuitWindowENDCLASS = QtMocHelpers::stringData(
-    "P7CircuitWindow"
+    "P7CircuitWindow",
+    "handlePB1Pressed",
+    "",
+    "handlePB2Pressed",
+    "handlecos1Pressed"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -48,34 +52,57 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSP7CircuitWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: name, argc, parameters, tag, flags, initial metatype offsets
+       1,    0,   32,    2, 0x08,    1 /* Private */,
+       3,    0,   33,    2, 0x08,    2 /* Private */,
+       4,    0,   34,    2, 0x08,    3 /* Private */,
+
+ // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
+
        0        // eod
 };
 
 Q_CONSTINIT const QMetaObject P7CircuitWindow::staticMetaObject = { {
-    QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
+    QMetaObject::SuperData::link<QObject::staticMetaObject>(),
     qt_meta_stringdata_CLASSP7CircuitWindowENDCLASS.offsetsAndSizes,
     qt_meta_data_CLASSP7CircuitWindowENDCLASS,
     qt_static_metacall,
     nullptr,
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSP7CircuitWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<P7CircuitWindow, std::true_type>
+        QtPrivate::TypeAndForceComplete<P7CircuitWindow, std::true_type>,
+        // method 'handlePB1Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handlePB2Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handlecos1Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
 
 void P7CircuitWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-    (void)_o;
-    (void)_id;
-    (void)_c;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        auto *_t = static_cast<P7CircuitWindow *>(_o);
+        (void)_t;
+        switch (_id) {
+        case 0: _t->handlePB1Pressed(); break;
+        case 1: _t->handlePB2Pressed(); break;
+        case 2: _t->handlecos1Pressed(); break;
+        default: ;
+        }
+    }
     (void)_a;
 }
 
@@ -89,12 +116,23 @@ void *P7CircuitWindow::qt_metacast(const char *_clname)
     if (!_clname) return nullptr;
     if (!strcmp(_clname, qt_meta_stringdata_CLASSP7CircuitWindowENDCLASS.stringdata0))
         return static_cast<void*>(this);
-    return QWidget::qt_metacast(_clname);
+    return QObject::qt_metacast(_clname);
 }
 
 int P7CircuitWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QWidget::qt_metacall(_c, _id, _a);
+    _id = QObject::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        if (_id < 3)
+            qt_static_metacall(this, _c, _id, _a);
+        _id -= 3;
+    } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
+        if (_id < 3)
+            *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
+        _id -= 3;
+    }
     return _id;
 }
 QT_WARNING_POP

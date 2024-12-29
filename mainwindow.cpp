@@ -214,12 +214,70 @@ void MainWindow::onButton1_clicked()
 
 void MainWindow::onButton2_clicked()
 {
-    // Placeholder for button 2 logic
+    // Create a new scene
+    QGraphicsScene *scene = new QGraphicsScene(this);
+
+    // Initialize P6CircuitWindow with the scene
+    P6CircuitWindow = new class P6CircuitWindow(scene);
+    P6CircuitWindow->resetCircuit();
+
+    // Create a new QWidget to display the scene
+    QWidget *window = new QWidget();
+    window->setWindowTitle("P6");
+
+    // Create a QVBoxLayout to manage the layout
+    QVBoxLayout *layout = new QVBoxLayout(window);
+
+    // Create a QGraphicsView to display the scene
+    QGraphicsView *view = new QGraphicsView(scene, window);
+    view->setRenderHint(QPainter::Antialiasing);
+
+    // Add the view to the layout
+    layout->addWidget(view);
+
+    // Set layout for the window
+    window->setLayout(layout);
+    window->resize(800, 600);
+
+    // Show the window
+    window->show();
+
+    // Close the main window
+    this->close();
 }
 
 void MainWindow::onButton3_clicked()
 {
-    // Placeholder for button 3 logic
+    // Create a new scene
+    QGraphicsScene *scene = new QGraphicsScene(this);
+
+    // Initialize P6CircuitWindow with the scene
+    P7CircuitWindow = new class P7CircuitWindow(scene);
+    P7CircuitWindow->resetCircuit();
+
+    // Create a new QWidget to display the scene
+    QWidget *window = new QWidget();
+    window->setWindowTitle("P6");
+
+    // Create a QVBoxLayout to manage the layout
+    QVBoxLayout *layout = new QVBoxLayout(window);
+
+    // Create a QGraphicsView to display the scene
+    QGraphicsView *view = new QGraphicsView(scene, window);
+    view->setRenderHint(QPainter::Antialiasing);
+
+    // Add the view to the layout
+    layout->addWidget(view);
+
+    // Set layout for the window
+    window->setLayout(layout);
+    window->resize(800, 600);
+
+    // Show the window
+    window->show();
+
+    // Close the main window
+    this->close();
 }
 
 void MainWindow::on_return_to_main_clicked()

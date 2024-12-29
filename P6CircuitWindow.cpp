@@ -64,23 +64,10 @@ P6CircuitWindow::P6CircuitWindow(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl4);
     scene->addItem(bz);
 
-    // Initialize PB1 button
-    PB1Button *pb1Button = new PB1Button("PB1");
-    pb1Button->setFixedSize(50, 50);
-
-    // Add button to scene using QGraphicsProxyWidget
-    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
-    proxy->setPos(150, 50);
-
     // Connect button signals
-    connect(pb1Button, &PB1Button::pressed, this, &P6CircuitWindow::handlePB1Pressed);
-    connect(pb1Button, &PB1Button::released, this, &P6CircuitWindow::handlePB1Released);
-
-    // Connect PB2 button signal for motor start
+    connect(pb1, &CircuitComponent::pressed, this, &P6CircuitWindow::handlePB1Pressed);
     connect(pb2, &CircuitComponent::pressed, this, &P6CircuitWindow::handlePB2Pressed);
-    connect(cos1, &CircuitComponent::pressed, this, &P6CircuitWindow::handlecos1Pressed);
 
-    // Reset circuit
     resetCircuit();
 }
 
@@ -104,20 +91,52 @@ void P6CircuitWindow::resetCircuit() {
 
 void P6CircuitWindow::handlePB1Pressed() {
     qDebug() << "PB1 Pressed";
-}
-
-void P6CircuitWindow::handlePB1Released() {
-    qDebug() << "PB1 Released";
+    mc1->setActive(true);
+    pl1->setOn(true);
+    QTimer::singleShot(2000, this, [this]() {
+        mc1->setActive(false);
+        mc2->setActive(true);
+        pl2->setOn(true);
+        QTimer::singleShot(2000, this, [this]() {
+            mc2->setActive(false);
+            mc3->setActive(true);
+            pl4->setOn(true);
+        });
+    });
 }
 
 void P6CircuitWindow::handlePB2Pressed() {
     qDebug() << "PB2 Pressed";
-}
-
-void P6CircuitWindow::handlecos1Pressed() {
-    qDebug() << "COS1 Pressed";
+    mc3->setActive(false);
+    pl4->setOn(false);
+    QTimer::singleShot(2000, this, [this]() {
+        mc2->setActive(false);
+        pl2->setOn(false);
+        QTimer::singleShot(2000, this, [this]() {
+            mc1->setActive(false);
+            pl1->setOn(false);
+        });
+    });
 }
 
 void P6CircuitWindow::stopMotor() {
     qDebug() << "Stopping Motor";
+    mc1->setActive(false);
+    mc2->setActive(false);
+    mc3->setActive(false);
+    pl1->setOn(false);
+    pl2->setOn(false);
+    pl3->setOn(false);
+    pl4->setOn(false);
+    bz->setOn(false);
+}
+
+void P6CircuitWindow::handlecos1Pressed() {
+    if (ol1->isActive() || ol2->isActive() || ol3->isActive()) {
+        if (cos1->isActive()) {
+            bz->setOn(true);
+        } else {
+            pl3->setOn(true);
+        }
+    }
 }

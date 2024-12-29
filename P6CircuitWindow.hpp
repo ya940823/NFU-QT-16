@@ -16,7 +16,7 @@ public:
 
 private slots:
     void handlePB1Pressed();
-    void handlePB1Released();
+    //void handlePB1Released();
     void handlePB2Pressed();
     void handlecos1Pressed();
 
