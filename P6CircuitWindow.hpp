@@ -15,10 +15,16 @@ public:
     void resetCircuit();
 
 private slots:
-    void handlePB1Pressed();
+    void handlePB1Clicked();
     //void handlePB1Released();
-    void handlePB2Pressed();
+    //void handlePB2Pressed();
+    //void handlePB2Released();
+    void handlePB2Clicked();
+    //void handleolPressed();
     void handlecos1Pressed();
+    void handleol1Pressed();
+    void handleol2Pressed();
+    void handleol3Pressed();
 
 private:
     void stopMotor();

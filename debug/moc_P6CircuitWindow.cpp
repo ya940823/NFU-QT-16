@@ -36,10 +36,13 @@ namespace {
 struct qt_meta_stringdata_CLASSP6CircuitWindowENDCLASS_t {};
 constexpr auto qt_meta_stringdata_CLASSP6CircuitWindowENDCLASS = QtMocHelpers::stringData(
     "P6CircuitWindow",
-    "handlePB1Pressed",
+    "handlePB1Clicked",
     "",
-    "handlePB2Pressed",
-    "handlecos1Pressed"
+    "handlePB2Clicked",
+    "handlecos1Pressed",
+    "handleol1Pressed",
+    "handleol2Pressed",
+    "handleol3Pressed"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -52,7 +55,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSP6CircuitWindowENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       3,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -60,11 +63,17 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSP6CircuitWindowENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   32,    2, 0x08,    1 /* Private */,
-       3,    0,   33,    2, 0x08,    2 /* Private */,
-       4,    0,   34,    2, 0x08,    3 /* Private */,
+       1,    0,   50,    2, 0x08,    1 /* Private */,
+       3,    0,   51,    2, 0x08,    2 /* Private */,
+       4,    0,   52,    2, 0x08,    3 /* Private */,
+       5,    0,   53,    2, 0x08,    4 /* Private */,
+       6,    0,   54,    2, 0x08,    5 /* Private */,
+       7,    0,   55,    2, 0x08,    6 /* Private */,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -81,11 +90,17 @@ Q_CONSTINIT const QMetaObject P6CircuitWindow::staticMetaObject = { {
     qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSP6CircuitWindowENDCLASS_t,
         // Q_OBJECT / Q_GADGET
         QtPrivate::TypeAndForceComplete<P6CircuitWindow, std::true_type>,
-        // method 'handlePB1Pressed'
+        // method 'handlePB1Clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'handlePB2Pressed'
+        // method 'handlePB2Clicked'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'handlecos1Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handleol1Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handleol2Pressed'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'handleol3Pressed'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -97,9 +112,12 @@ void P6CircuitWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         auto *_t = static_cast<P6CircuitWindow *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->handlePB1Pressed(); break;
-        case 1: _t->handlePB2Pressed(); break;
+        case 0: _t->handlePB1Clicked(); break;
+        case 1: _t->handlePB2Clicked(); break;
         case 2: _t->handlecos1Pressed(); break;
+        case 3: _t->handleol1Pressed(); break;
+        case 4: _t->handleol2Pressed(); break;
+        case 5: _t->handleol3Pressed(); break;
         default: ;
         }
     }
@@ -125,13 +143,13 @@ int P6CircuitWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 3)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 3;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 3)
+        if (_id < 6)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 3;
+        _id -= 6;
     }
     return _id;
 }
