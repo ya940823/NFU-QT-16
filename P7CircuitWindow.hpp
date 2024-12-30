@@ -19,7 +19,7 @@ private slots:
     //void handlePB1Released();
     void handlePB2Pressed();
     //void onTimeout();
-    void handleFRPressed();
+    void handleolPressed();
     void toggleFR();
 
 private:

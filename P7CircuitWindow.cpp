@@ -80,13 +80,13 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     //QTimer timer;// = new QTimer(this);
     frTimer->setInterval(500);
     connect(frTimer, &QTimer::timeout, this, &P7CircuitWindow::toggleFR);
-    connect(fr, &CircuitComponent::pressed, this, &P7CircuitWindow::handleFRPressed);
+    connect(ol, &CircuitComponent::pressed, this, &P7CircuitWindow::handleolPressed);
     // Connect button signals
     connect(pb1, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB1Pressed);
     connect(pb2, &CircuitComponent::pressed, this, &P7CircuitWindow::handlePB2Pressed);
     resetCircuit();
 }
-void P7CircuitWindow::handleFRPressed() {
+void P7CircuitWindow::handleolPressed() {
     if (FRBlinking) {
         FRBlinking = false;
         frTimer->stop();
