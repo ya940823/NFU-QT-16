@@ -13,47 +13,7 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="P6">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>200</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>P6</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="P7">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>280</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>P7</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="P5">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>120</y>
-      <width>75</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>P5</string>
-    </property>
-   </widget>
-  </widget>
+  <widget class="QWidget" name="centralwidget"/>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>

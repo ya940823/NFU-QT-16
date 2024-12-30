@@ -13,9 +13,70 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    connect(ui->P5, &QPushButton::clicked, this, &MainWindow::onButton1_clicked);
-    connect(ui->P6, &QPushButton::clicked, this, &MainWindow::onButton2_clicked);
-    connect(ui->P7, &QPushButton::clicked, this, &MainWindow::onButton3_clicked);
+    // Create a central widget
+    QWidget *centralWidget = new QWidget(this);
+    this->setCentralWidget(centralWidget);
+
+    // Create main layout
+    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
+
+    // Add title label
+    QLabel *titleLabel = new QLabel("⚡ 電路模擬選擇 ⚡", centralWidget);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    titleLabel->setStyleSheet("font-size: 45px; font-weight: bold; color: #3498db; margin-bottom: 20px;");
+    mainLayout->addWidget(titleLabel);
+
+    // Add buttons layout
+    QHBoxLayout *buttonLayout = new QHBoxLayout();
+
+    // Create buttons
+    QPushButton *p5Button = new QPushButton("✨ P5 ✨", centralWidget);
+    QPushButton *p6Button = new QPushButton("🔥 P6 🔥", centralWidget);
+    QPushButton *p7Button = new QPushButton("🌟 P7 🌟", centralWidget);
+
+    // Set button styles
+    QString buttonStyle = "font-size: 36px; padding: 45px; border-radius: 5px; background-color: #2ecc71; color: white; font-weight: bold;";
+    p5Button->setStyleSheet(buttonStyle);
+    p6Button->setStyleSheet(buttonStyle);
+    p7Button->setStyleSheet(buttonStyle);
+
+    // Set button sizes
+    p5Button->setMinimumSize(250, 120);
+    p6Button->setMinimumSize(250, 120);
+    p7Button->setMinimumSize(250, 120);
+    p5Button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    p6Button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    p7Button->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    // Add hover effect
+    QString hoverStyle = "QPushButton:hover { background-color: #27ae60; }";
+    p5Button->setStyleSheet(buttonStyle + hoverStyle);
+    p6Button->setStyleSheet(buttonStyle + hoverStyle);
+    p7Button->setStyleSheet(buttonStyle + hoverStyle);
+
+    // Add buttons to layout with spacing
+    buttonLayout->addWidget(p5Button, 0, Qt::AlignCenter);
+    buttonLayout->addSpacing(40);
+    buttonLayout->addWidget(p6Button, 0, Qt::AlignCenter);
+    buttonLayout->addSpacing(40);
+    buttonLayout->addWidget(p7Button, 0, Qt::AlignCenter);
+
+    mainLayout->addLayout(buttonLayout);
+
+    // Connect buttons to respective slots
+    connect(p5Button, &QPushButton::clicked, this, &MainWindow::onButton1_clicked);
+    connect(p6Button, &QPushButton::clicked, this, &MainWindow::onButton2_clicked);
+    connect(p7Button, &QPushButton::clicked, this, &MainWindow::onButton3_clicked);
+
+    // Add footer
+    QLabel *footerLabel = new QLabel("選擇您要模擬的電路，享受探索的樂趣！", centralWidget);
+    footerLabel->setAlignment(Qt::AlignCenter);
+    footerLabel->setStyleSheet("font-size: 16px; color: #95a5a6; margin-top: 20px;");
+    mainLayout->addWidget(footerLabel);
+
+    // Adjust window size
+    this->resize(1000, 700);
+    this->setWindowTitle("電路模擬系統");
 }
 
 MainWindow::~MainWindow()
