@@ -43,13 +43,16 @@ void CircuitComponent::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
 CircuitLamp::CircuitLamp(const QString &name, QGraphicsItem *parent)
     : QGraphicsEllipseItem(parent), lampName(name), isOnState(false) {
     setRect(0, 0, 30, 30); // 燈的預設大小
-    setBrush(QBrush(Qt::red)); // 紅色表示關閉
+
+    QGraphicsTextItem *text = new QGraphicsTextItem(name, this);
+    text->setDefaultTextColor(Qt::black);
+    setBrush(QBrush(Qt::gray)); // 紅色表示關閉
     setPen(QPen(Qt::black));
 }
 
 void CircuitLamp::setOn(bool state) {
     isOnState = state;
-    setBrush(state ? QBrush(Qt::yellow) : QBrush(Qt::red)); // 黃色表示開啟，紅色表示關閉
+    setBrush(state ? QBrush(Qt::yellow) : QBrush(Qt::gray)); // 黃色表示開啟，紅色表示關閉
 }
 
 bool CircuitLamp::isOn() const {
