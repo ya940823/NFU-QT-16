@@ -44,6 +44,13 @@ P5S3::P5S3(QGraphicsScene *scene, QObject *parent)
     pl4->setPos(600, 50);
     bz->setPos(650, 50);
 
+    // Initialize PB1 button
+    PB1Button *pb1Button = new PB1Button("PB1");
+    pb1Button->setFixedSize(50, 50);
+
+    // Add button to scene using QGraphicsProxyWidget
+    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
+    proxy->setPos(150, 50);
     // Add to scene
     scene->addItem(nfb);
     scene->addItem(cos1);
@@ -60,14 +67,6 @@ P5S3::P5S3(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl3);
     scene->addItem(pl4);
     scene->addItem(bz);
-
-    // Initialize PB1 button
-    PB1Button *pb1Button = new PB1Button("PB1");
-    pb1Button->setFixedSize(50, 50);
-
-    // Add button to scene using QGraphicsProxyWidget
-    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
-    proxy->setPos(150, 50);
 
     // Connect button signals
     connect(pb1Button, &PB1Button::pressed, this, &P5S3::handlePB1Pressed);

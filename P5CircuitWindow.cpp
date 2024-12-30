@@ -27,6 +27,13 @@ P5CircuitWindow::P5CircuitWindow(QGraphicsScene *scene, QObject *parent)
     pl4 = new CircuitLamp("PL4");
     bz = new CircuitLamp("BZ");
 
+    // Initialize PB1 button
+    PB1Button *pb1Button = new PB1Button("PB1");
+    pb1Button->setFixedSize(50, 50);
+
+    // Add button to scene using QGraphicsProxyWidget
+    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
+    proxy->setPos(150, 50);
     // Set positions
     nfb->setPos(50, 50);
     cos1->setPos(100, 50);
@@ -60,14 +67,6 @@ P5CircuitWindow::P5CircuitWindow(QGraphicsScene *scene, QObject *parent)
     scene->addItem(pl3);
     scene->addItem(pl4);
     scene->addItem(bz);
-
-    // Initialize PB1 button
-    PB1Button *pb1Button = new PB1Button("PB1");
-    pb1Button->setFixedSize(50, 50);
-
-    // Add button to scene using QGraphicsProxyWidget
-    QGraphicsProxyWidget *proxy = scene->addWidget(pb1Button);
-    proxy->setPos(150, 50);
 
     // Connect button signals
     connect(pb1Button, &PB1Button::pressed, this, &P5CircuitWindow::handlePB1Pressed);
