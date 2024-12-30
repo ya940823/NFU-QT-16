@@ -196,4 +196,5 @@ void P5S1::resetCircuit() {
     qDebug() << "Resetting Circuit";
     stopMotor();
     pl4->setOn(true);
+    nfb->setActive(true);
 }

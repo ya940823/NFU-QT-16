@@ -202,5 +202,6 @@ void P5CircuitWindow::stopMotor() {
 void P5CircuitWindow::resetCircuit() {
     qDebug() << "Resetting Circuit";
     stopMotor();
+    nfb->setActive(true);
     pl4->setOn(true);
 }
