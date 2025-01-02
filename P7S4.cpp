@@ -3,12 +3,30 @@
 #include <QGraphicsProxyWidget>
 #include <QDebug>
 #include <QTimer>
+#include <QFile>
 
 P7S4::P7S4(QGraphicsScene *scene, QObject *parent)
-    : QObject(parent), scene(scene),frTimer(new QTimer(this)),FRBlinking(false) {
+    : QObject(parent), scene(scene), frTimer(new QTimer(this)), FRBlinking(false), player(new QMediaPlayer(this)), audioOutput(new QAudioOutput(this)), bz(nullptr) {
     view = new QGraphicsView(scene);
     view->setRenderHint(QPainter::Antialiasing);
     scene->setSceneRect(0, 0, 800, 600);
+    player->setAudioOutput(audioOutput);
+    audioOutput->setVolume(1);
+
+    QString soundFilePath = QCoreApplication::applicationDirPath() + "/resources/sound.mp3";
+    if (!QFile::exists(soundFilePath)) {
+        qWarning() << "Sound file not found:" << soundFilePath;
+    } else {
+        qDebug() << "Sound file loaded:" << soundFilePath;
+    }
+    player->setSource(QUrl::fromLocalFile(soundFilePath));
+
+    connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
+        if (state == QMediaPlayer::StoppedState) {
+            player->play();
+        }
+    });
+
 
     // Initialize components
     nfb = new CircuitComponent("NFB");
@@ -107,9 +125,14 @@ P7S4::P7S4(QGraphicsScene *scene, QObject *parent)
 }
 void P7S4::handleolPressed() {
     stopMotor();
-    if (ol->isActive()) ol->setActive(false),fr->setActive(true);
-    else ol->setActive(true),fr->setActive(true);
-    if(ol->isActive() && fr->isActive()){
+    if (ol->isActive()) {
+        ol->setActive(false);
+        fr->setActive(true);
+    } else {
+        ol->setActive(true);
+        fr->setActive(true);
+    }
+    if (ol->isActive() && fr->isActive()) {
         if (FRBlinking) {
             FRBlinking = false;
             frTimer->stop();
@@ -119,14 +142,14 @@ void P7S4::handleolPressed() {
             frTimer->start();
             qDebug() << "FR toggling started";
         }
-    }
-    else{
+    } else {
         FRBlinking = false;
         frTimer->stop();
         fr->setActive(false);
+        stopBzSound();
         bz->setOn(false);
         pl4->setOn(false);
-        qDebug() << "FR OFF, PL4 ON, BZ OFF";
+        qDebug() << "FR OFF, PL4 OFF, BZ OFF";
     }
 }
 
@@ -136,7 +159,7 @@ void P7S4::toggleFR() {
     static bool bzState = false;
 
     if (!FRBlinking) {
-        // 確保在停止時不再切換狀態
+        stopBzSound();
         bz->setOn(false);
         pl4->setOn(true);
         return;
@@ -146,10 +169,12 @@ void P7S4::toggleFR() {
 
     if (bzState) {
         qDebug() << "BZ ON, PL4 OFF";
+        onBzLightUp();
         bz->setOn(true);
         pl4->setOn(false);
     } else {
         qDebug() << "BZ OFF, PL4 ON";
+        stopBzSound();
         bz->setOn(false);
         pl4->setOn(true);
     }
@@ -189,6 +214,7 @@ void P7S4::handlePB1Pressed() {
         frTimer->stop();
         fr->setActive(false);  // 關閉 FR
         bz->setOn(false);      // 確保 BZ 關閉
+        stopBzSound();
         pl4->setOn(true);      // 打開 PL4
         qDebug() << "PB1 pressed, FR OFF, PL4 ON, BZ OFF";
     } else {
@@ -284,3 +310,29 @@ void P7S4::stopMotor() {
     pl3->setOn(false);
     pl4->setOn(false);
 }
+
+void P7S4::onBzLightUp() {
+    if (player->playbackState() != QMediaPlayer::PlayingState) {
+        qDebug() << "BZ is lighting up! Playing sound.";
+        player->play();
+    } else {
+        qDebug() << "BZ is already playing. Skipping play.";
+    }
+}
+
+void P7S4::stopBzSound() {
+    if (player->playbackState() == QMediaPlayer::PlayingState) {
+        qDebug() << "Stopping BZ sound.";
+        disconnect(player, &QMediaPlayer::playbackStateChanged, nullptr, nullptr); // 暫時斷開連接
+        player->stop();
+        connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
+            if (state == QMediaPlayer::StoppedState && FRBlinking) {
+                player->play();
+            }
+        });
+    } else {
+        qDebug() << "BZ sound is not playing. Skipping stop.";
+    }
+    bz->setOn(false); // 確保燈關閉
+}
+

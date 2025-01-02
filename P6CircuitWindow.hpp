@@ -5,6 +5,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "CircuitComponent.hpp"
+#include <QMediaPlayer>
+#include <QAudioOutput>
+
 
 class P6CircuitWindow : public QObject {
     Q_OBJECT
@@ -26,11 +29,16 @@ private slots:
     void handleol2Pressed();
     void handleol3Pressed();
 
+
 private:
     void stopMotor();
+    void onBzLightUp();
+    void stopBzSound();
 
     QGraphicsScene *scene;
     QGraphicsView *view;
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
 
     CircuitComponent *nfb;
     CircuitComponent *cos1;

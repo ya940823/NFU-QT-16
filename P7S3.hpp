@@ -5,6 +5,8 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "CircuitComponent.hpp"
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 class P7S3 : public QObject {
     Q_OBJECT
@@ -13,6 +15,10 @@ public:
     explicit P7S3(QGraphicsScene *scene, QObject *parent = nullptr);
 
     void resetCircuit();
+    void onBzLightUp();
+    void stopBzSound();
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
 
 private slots:
     void handlePB1Pressed();

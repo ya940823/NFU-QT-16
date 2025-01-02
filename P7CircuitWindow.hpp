@@ -5,14 +5,17 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "CircuitComponent.hpp"
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 class P7CircuitWindow : public QObject {
     Q_OBJECT
 
 public:
     explicit P7CircuitWindow(QGraphicsScene *scene, QObject *parent = nullptr);
-
     void resetCircuit();
+    void onBzLightUp();
+    void stopBzSound();
 
 private slots:
     void handlePB1Pressed();
@@ -30,11 +33,14 @@ private slots:
     void handlels2Released();
 
 
+
 private:
     void stopMotor();
 
     QGraphicsScene *scene;
     QGraphicsView *view;
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
 
     CircuitComponent *nfb;
     CircuitComponent *fr;

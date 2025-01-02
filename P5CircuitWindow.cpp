@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QTimer>
 
+
 P5CircuitWindow::P5CircuitWindow(QGraphicsScene *scene, QObject *parent)
     : QObject(parent), scene(scene) {
     view = new QGraphicsView(scene);
@@ -93,6 +94,7 @@ void P5CircuitWindow::handlecos1Pressed() { //cos1 true:1, cos1 false:2
         bz->setOn(true);
         pl3->setOn(false);
         pl4->setOn(false);
+
     }
     else if(!cos1->isActive() && thRy->isActive()){
         //thry up
@@ -166,6 +168,7 @@ void P5CircuitWindow::handleTHRYTriggered() {
         bz->setOn(true);
         pl3->setOn(false);
         pl4->setOn(false);
+
     }
     else if(!cos1->isActive() && thRy->isActive()){
         //thry up
@@ -204,3 +207,4 @@ void P5CircuitWindow::resetCircuit() {
     nfb->setActive(true);
     pl4->setOn(true);
 }
+

@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMediaPlayer>
 #include <cstdlib>
 #include <QDir>
 #include <qdir.h>
@@ -53,7 +54,6 @@ private slots:
     void onButton2_clicked();
     void onButton3_clicked();
     void on_return_to_main_clicked();  // 返回主視窗的槽
-
 private:
     Ui::MainWindow *ui;
     P5CircuitWindow *P5CircuitWindow;
