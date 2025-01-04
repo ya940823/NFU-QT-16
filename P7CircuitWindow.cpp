@@ -20,16 +20,9 @@ P7CircuitWindow::P7CircuitWindow(QGraphicsScene *scene, QObject *parent)
     }
     player->setSource(QUrl::fromLocalFile(soundFilePath));
 
-    // 確認文件是否正確加載
-    if (!QFile::exists(soundFilePath)) {
-        qWarning() << "Sound file not found:" << soundFilePath;
-    } else {
-        qDebug() << "Sound file loaded:" << soundFilePath;
-    }
-
     // 確保音效循環播放
     connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
-        if (state == QMediaPlayer::StoppedState) {
+        if (state == QMediaPlayer::StoppedState && FRBlinking) {
             player->play();
         }
     });
@@ -311,8 +304,6 @@ void P7CircuitWindow::stopMotor() {
     pl3->setOn(false);
     pl4->setOn(false);
 }
-
-
 
 void P7CircuitWindow::onBzLightUp() {
     if (player->playbackState() != QMediaPlayer::PlayingState) {

@@ -10,6 +10,9 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QTimer>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QFile>
 
 // CircuitComponent 類別，表示電路元件
 class CircuitComponent : public QObject, public QGraphicsRectItem {

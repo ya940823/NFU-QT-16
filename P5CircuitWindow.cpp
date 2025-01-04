@@ -6,10 +6,26 @@
 
 
 P5CircuitWindow::P5CircuitWindow(QGraphicsScene *scene, QObject *parent)
-    : QObject(parent), scene(scene) {
+    : QObject(parent), scene(scene), player(new QMediaPlayer(this)),audioOutput(new QAudioOutput(this)),bz(nullptr) {
     view = new QGraphicsView(scene);
     view->setRenderHint(QPainter::Antialiasing);
     scene->setSceneRect(0, 0, 800, 600);
+    player->setAudioOutput(audioOutput);
+    audioOutput->setVolume(1); // 設置音量
+    QString soundFilePath = QCoreApplication::applicationDirPath() + "/resources/sound.mp3";
+    if (!QFile::exists(soundFilePath)) {
+        qWarning() << "Sound file not found:" << soundFilePath;
+    } else {
+        qDebug() << "Sound file loaded:" << soundFilePath;
+    }
+    player->setSource(QUrl::fromLocalFile(soundFilePath));
+
+    // 確保音效循環播放
+    connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
+        if (state == QMediaPlayer::StoppedState) {
+            player->play();
+        }
+    });
 
     // Initialize components
     nfb = new CircuitComponent("NFB");
@@ -92,6 +108,7 @@ void P5CircuitWindow::handlecos1Pressed() { //cos1 true:1, cos1 false:2
         //thry up
         resetCircuit();
         bz->setOn(true);
+        onBzLightUp();
         pl3->setOn(false);
         pl4->setOn(false);
 
@@ -100,24 +117,29 @@ void P5CircuitWindow::handlecos1Pressed() { //cos1 true:1, cos1 false:2
         //thry up
         resetCircuit();
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(true);
         pl4->setOn(false);
     }
     else if(cos1->isActive() && !thRy->isActive()){ //cos1 true:1
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(false);
         pl4->setOn(true);
     }
     else if(!cos1->isActive() && !thRy->isActive()){
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(false);
         pl4->setOn(true);
     }
     if (cos1->isActive() && thRy->isActive()) {
         bz->setOn(true);
+        onBzLightUp();
         pl3->setOn(false);
     } else if(thRy->isActive()){
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(true);
     }
 }
@@ -166,6 +188,7 @@ void P5CircuitWindow::handleTHRYTriggered() {
         //thry up
         resetCircuit();
         bz->setOn(true);
+        onBzLightUp();
         pl3->setOn(false);
         pl4->setOn(false);
 
@@ -174,16 +197,19 @@ void P5CircuitWindow::handleTHRYTriggered() {
         //thry up
         resetCircuit();
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(true);
         pl4->setOn(false);
     }
     else if(cos1->isActive() && !thRy->isActive()){
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(false);
         pl4->setOn(true);
     }
     else if(!cos1->isActive() && !thRy->isActive()){
         bz->setOn(false);
+        stopBzSound();
         pl3->setOn(false);
         pl4->setOn(true);
     }
@@ -199,6 +225,7 @@ void P5CircuitWindow::stopMotor() {
     pl3->setOn(false);
     pl4->setOn(false);
     bz->setOn(false);
+    stopBzSound();
 }
 
 void P5CircuitWindow::resetCircuit() {
@@ -206,5 +233,30 @@ void P5CircuitWindow::resetCircuit() {
     stopMotor();
     nfb->setActive(true);
     pl4->setOn(true);
+}
+
+void P5CircuitWindow::onBzLightUp() {
+    if (player->playbackState() != QMediaPlayer::PlayingState) {
+        qDebug() << "BZ is lighting up! Playing sound.";
+        player->play();
+    } else {
+        qDebug() << "BZ is already playing. Skipping play.";
+    }
+}
+
+void P5CircuitWindow::stopBzSound() {
+    if (player->playbackState() == QMediaPlayer::PlayingState) {
+        qDebug() << "Stopping BZ sound.";
+        disconnect(player, &QMediaPlayer::playbackStateChanged, nullptr, nullptr); // 暫時斷開連接
+        player->stop();
+        connect(player, &QMediaPlayer::playbackStateChanged, this, [this](QMediaPlayer::PlaybackState state) {
+            if (state == QMediaPlayer::StoppedState) {
+                player->play();
+            }
+        });
+    } else {
+        qDebug() << "BZ sound is not playing. Skipping stop.";
+    }
+    bz->setOn(false); // 確保燈關閉
 }
 

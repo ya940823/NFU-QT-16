@@ -23,9 +23,13 @@ private slots:
 
 private:
     void stopMotor();
+    void onBzLightUp();
+    void stopBzSound();
 
     QGraphicsScene *scene;
     QGraphicsView *view;
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
 
     CircuitComponent *nfb;
     CircuitComponent *cos1;

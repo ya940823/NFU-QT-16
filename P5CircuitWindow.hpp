@@ -13,7 +13,6 @@ class P5CircuitWindow : public QObject {
 
 public:
     explicit P5CircuitWindow(QGraphicsScene *scene, QObject *parent = nullptr);
-
     void resetCircuit();
 
 private slots:
