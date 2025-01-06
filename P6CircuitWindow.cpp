@@ -125,9 +125,9 @@ void P6CircuitWindow::handlePB1Clicked() {
             if(!ol1->isActive() && !ol2->isActive() && !ol3->isActive() && !pb2->isActive()) {
                 mc2->setActive(true);
                 pl2->setOn(true);
+                t1->setActive(false);
+                t2->setActive(true);
             }
-            t1->setActive(false);
-            t2->setActive(true);
             QTimer::singleShot(2000, this, [this]() {
                 if(!ol1->isActive() && !ol2->isActive() && !ol3->isActive() && !pb2->isActive()) {
                     mc3->setActive(true);
@@ -151,9 +151,9 @@ void P6CircuitWindow::handlePB2Clicked() {
             if(!ol1->isActive() && !ol2->isActive() && !ol3->isActive()) {
                 mc2->setActive(false);
                 pl2->setOn(false);
+                t1->setActive(false);
+                t2->setActive(true);
             }
-            t1->setActive(false);
-            t2->setActive(true);
             QTimer::singleShot(2000, this, [this]() {
                 if(!ol1->isActive() && !ol2->isActive() && !ol3->isActive()) {
                     mc3->setActive(false);
